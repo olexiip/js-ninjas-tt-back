@@ -1,2 +1,43 @@
 # js-ninjas-tt-back
 js-ninjas-test-task backend
+<br>
+deployed app with front and back ends u can find here:
+<br>
+https://jsn-tt-front.onrender.com/home
+<br>
+(takes a long time to load because it's free hosting)
+<br>
+<br>
+Project need .env file with foloving data:
+<br>
+```
+MY_PORT=3001   
+DB_CON=mongoDB connection string 
+JWT_S=password
+JWT_R_S=enother password        
+URL=localhost:3001          
+SMTP_HOST=smtp.gmail.com    
+SMTP_PORT=587
+SMTP_USER=mail
+SMTP_PASS=password
+FRONT=localhost:3000       
+```
+ <br>
+ DB_COM - mongo database connection string, i use free database service provided by https://www.mongodb.com/,  
+ <br>
+ JWT_S - password, for token generation (use for authorithation, check https://jwt.io/ for more info) 
+ <br>
+ JWT_R_S - password, for refresh-token generation, you should use enother pass for security reason. 
+ <br>
+SMTP parameters need for sending email to user for registration verification. 
+<br>
+Im using regular google account, just register new acc, u need check google mail settings, because by default it is disabled, and you should turn off 2fa. Becarefuul google have limits. 
+<br>
+SMTP_USER = in my case it google email used for sending mails, for ex: some@gmail.com 
+<br>
+SMTP_PASS = password for this google acc. 
+<br>
+URL - need for compose email activation link URL like "URL/auth/activate/activation-code"
+<br>
+FRONT - it is URL to redirect in case of complete account activation
+<br>
