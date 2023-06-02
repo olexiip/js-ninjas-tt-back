@@ -22,20 +22,17 @@ class ItemService {
 
     
     async getallFree(req, res) {
-        console.log("ItemService >> getAllItems");
+        console.log("ItemService >> getallFree");
         const limit = +req.query.limit;
         const page = +req.query.page;
-        const allItems = await Item.find();
-        const a =(limit*(page+1)-20);
-        const startIndex = ((a>=0)?a:0);
-        const finalIndex = startIndex + +limit;
-        //console.log(`>>>> indexes   ${a}, ${finalIndex}`)
-        const itemList = allItems.slice(startIndex, finalIndex);
-        //console.log(itemList)
-        const total = itemList.length;
+        const startIndex =(limit*(page)-limit);
+
+        const collectionsize = await Item.estimatedDocumentCount();
+        const allItems = await Item.find().skip(startIndex).limit(+limit);
+        
         const result={
-            itemList,
-            total: +total, 
+            itemList: allItems,
+            total: +collectionsize, 
             page: +page, 
             limit: +limit
         } 
@@ -45,33 +42,21 @@ class ItemService {
 
     async getAllItems(req, res) {
         console.log("ItemService >> getAllItems");
-        // console.log(req.user.id)
-        // console.log(req.body)
-        // console.log(req.query)
         const limit = +req.query.limit;
         const page = +req.query.page;
-        const allItems = await Item.find({owner : req.user.id});
-        const a =(limit*(page+1)-20);
-        const startIndex = ((a>=0)?a:0);
-        const finalIndex = startIndex + +limit;
-        //console.log(`>>>> indexes   ${a}, ${finalIndex}`)
-        const itemList = allItems.slice(startIndex, finalIndex);
-        //console.log(itemList)
-        const total = itemList.length;
+        const startIndex =(limit*(page)-limit);
+
+        const collectionsize = await Item.find({owner : req.user.id}).estimatedDocumentCount();
+        const allItems = await Item.find({owner : req.user.id}).skip(startIndex).limit(+limit);
+
         const result={
-            itemList,
-            total: +total, 
+            itemList: allItems,
+            total: +collectionsize, 
             page: +page, 
             limit: +limit
         } 
-        //console.log(result);
         return  result;
     }
-
-  //  async getById(id) {
-   //     console.log(`service got req with id=${id}`);
-   //     return todoRepository.getById(id);
-    //}
 
     async update(req, res) {
         console.log("ItemService >> update");
@@ -80,9 +65,6 @@ class ItemService {
         console.log(`userID ${userID}`)
         const ItemID = req.body.id;
         const editedItem = req.body.editedItem;
-        // console.log(`ItemID ${ItemID}`)
-        // console.log(`todo ${todo}`)
-        // console.log(todo)
         const item = await Item.findById(ItemID);
         if (!(item.owner===userID)) {
             return {res: "error norm"};
@@ -118,12 +100,12 @@ class ItemService {
         const ItemID = req.body.id;
         console.log(`service got item DELETE req `);
         const item = await Item.findById(ItemID);
-        if (item?._id) {                        // item exist
+        if (item?._id) {                       
             console.log(`item : ${item}`);
-                if (item.owner === userID) {    // user is ownwer -> delete
+                if (item.owner === userID) {    
                     const delIsOK = await item.delete();
                     return {res:"item deleted"};
-                } else {                       // user is subscriber -> unsub
+                } else {                      
                     const indexForDel = item.sharedWith.indexOf(userID)
                     if (indexForDel>=0) {
                         item.sharedWith.splice(indexForDel,1);
