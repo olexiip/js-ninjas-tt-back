@@ -3,7 +3,6 @@ import Item from "../models/Item.js"
 
 class ItemService {
     async createItem(req, res) {
-        console.log("ItemService >> createItem");
         const newItem = new Item({
             owner:req.user.id, 
             nickname: req.body.nickname, 
@@ -13,13 +12,11 @@ class ItemService {
             catchPhrase: req.body.catchPhrase, 
             });
             newItem.save();
-        console.log(newItem);
         return  newItem;
     }
 
     
     async getallFree(req, res) {
-        console.log("ItemService >> getallFree");
         const limit = +req.query.limit;
         const page = +req.query.page;
         const startIndex =(limit*(page)-limit);
@@ -33,12 +30,10 @@ class ItemService {
             page: +page, 
             limit: +limit
         } 
-        //console.log(result);
         return  result;
     }
 
     async getAllItems(req, res) {
-        console.log("ItemService >> getAllItems");
         const limit = +req.query.limit;
         const page = +req.query.page;
         const startIndex =(limit*(page)-limit);
@@ -56,10 +51,7 @@ class ItemService {
     }
 
     async update(req, res) {
-        console.log("ItemService >> update");
-        console.log(req.body);
         const userID = req.user.id;
-        console.log(`userID ${userID}`)
         const ItemID = req.body.id;
         const editedItem = req.body.editedItem;
         const item = await Item.findById(ItemID);
@@ -77,23 +69,7 @@ class ItemService {
         return {res: "text updated"};
     }
 
-    async updateImage(req, res) {
-        console.log(`service got updateStatus req `);
-        const userID = req.user.id;
-        const ItemID = req.body.id;
-        const todo = req.body;
-        const item = await Item.findById(ItemID);
-        const isShred = item.sharedWith.indexOf(userID);
-        if ((item.owner===userID) || (isShred>=0)) {
-            item.isComplited=Item.isComplited;
-            item.save();
-            return {res: "status updated"};
-        }
-        return {res: "error norm"};
-    }
-
     async deleteItem(req, res) {
-        console.log("ItemService >> deleteItem");
         const item = await Item.deleteOne({_id : ItemID});
         return {res:"item deleted"};
     }

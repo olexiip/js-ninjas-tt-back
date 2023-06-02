@@ -12,13 +12,12 @@ const authMiddlewares = async (req, res, next) => {
     let currRtoken;
     let currUser;
     try {
-        console.log("try")
         tokenIsOk = await tokenService.checkAccesToken(bearer);
         currRtoken = await Token.find({user: tokenIsOk.id});
         currUser = await User.findById(tokenIsOk.id);
     } catch (e) {
         console.log(e);
-        return res.json({"res":"auth error2"});
+        //return res.json({"res":"auth error2"});
     }
     const acces = (!!tokenIsOk && !!currRtoken.length && !!currUser);
     if (!acces) {

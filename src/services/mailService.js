@@ -1,10 +1,7 @@
 import nodemailer from "nodemailer";
-import dotenv from "dotenv";
 
-dotenv.config();
 class MailService {
     constructor(){
-        //this.log = logger;
         const transportParams = {
             host: process.env.SMTP_HOST,
             port: process.env.SMTP_PORT,
