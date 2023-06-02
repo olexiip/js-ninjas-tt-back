@@ -1,7 +1,4 @@
 
-import User from "../models/User.js";
-import Role from "../models/Roles.js";
-import Token from "../models/Token.js";
 import Item from "../models/Item.js"
 
 class ItemService {
@@ -96,26 +93,9 @@ class ItemService {
     }
 
     async deleteItem(req, res) {
-        const userID = req.user.id;
-        const ItemID = req.body.id;
-        console.log(`service got item DELETE req `);
-        const item = await Item.findById(ItemID);
-        if (item?._id) {                       
-            console.log(`item : ${item}`);
-                if (item.owner === userID) {    
-                    const delIsOK = await item.delete();
-                    return {res:"item deleted"};
-                } else {                      
-                    const indexForDel = item.sharedWith.indexOf(userID)
-                    if (indexForDel>=0) {
-                        item.sharedWith.splice(indexForDel,1);
-                        console.log(item.sharedWith);
-                        await item.save();
-                        return {res:"unsubscribed"}
-                    }
-                }
-        }
-        return {res:"errr"}
+        console.log("ItemService >> deleteItem");
+        const item = await Item.deleteOne({_id : ItemID});
+        return {res:"item deleted"};
     }
 
 }
