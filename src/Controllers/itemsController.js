@@ -1,28 +1,49 @@
+import itemService from "../services/itemService.js";
+
 
 class ItemsController {
 
   async getAll(req, res) {
     console.log("itemsController > getAll");
+    const itemList = await itemService.getAllItems(req, res);
+    res.json(itemList);
+    return [];
+  }
 
-    res.json("get all");
+  async getallFree(req, res) {
+    console.log("itemsController > getAll");
+    const itemList = await itemService.getallFree(req, res);
+    res.json(itemList);
     return [];
   }
 
   async createItem(req, res) {
     console.log("itemsController > createItem");
-
-    res.json("createItem");
+    const newItem = await itemService.createItem(req, res);
+    res.json(newItem);
+    return [];
   }
+
   async deleteItem(req, res) {
     console.log("itemsController > deleteItem");
-
-    res.json("deleteItem");
+    const delItem = await itemService.deleteItem(req, res);
+    res.json(delItem);
+    return [];
   }
   async update(req, res) {
     console.log("itemsController > update");
-
-    res.json("update");
+    const updatedItem = await itemService.update(req, res);
+    res.json(updatedItem);
+    return [];
   }
+
+  async updateImage(req, res) {
+    console.log("itemsController > updateImage");
+    const ipdupdatedItematedItem = await itemService.updateImage(req, res);
+    res.json(updatedItem);
+    return [];
+  }
+
 }
  
 const itemsController = new ItemsController();

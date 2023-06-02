@@ -12,6 +12,7 @@ const authMiddlewares = async (req, res, next) => {
     let currRtoken;
     let currUser;
     try {
+        console.log("try")
         tokenIsOk = await tokenService.checkAccesToken(bearer);
         currRtoken = await Token.find({user: tokenIsOk.id});
         currUser = await User.findById(tokenIsOk.id);

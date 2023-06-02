@@ -30,13 +30,13 @@ class AuthController {
     async refresh(req, res) {
         console.log(`AuthController > refresh request`);
         //console.log(req.body);
-        this.log.info(`AuthController > refreshToken: ${req.body.refreshToken}`);
+        console.log(`AuthController > refreshToken: ${req.body.refreshToken}`);
         if (!req.body.refreshToken) {
             res.json({"res": "user does not have a token"});
         }   
         const checkRefreshToken = await userService.refresh(req.body.refreshToken);
         if (checkRefreshToken) {
-            this.log.info(`AuthController > refresh ok`);
+            console.log(`AuthController > refresh ok`);
             return res.json(checkRefreshToken);
         }
         return res.status(400).json({"res": "refresh bad"});    
@@ -45,7 +45,7 @@ class AuthController {
     async activate(req, res) {
         console.log(`>>> activate request`);
         const actLink = req.params.link;
-        this.log.info(`>>> actLink:`);
+        console.log(`>>> actLink:`);
         console.log(actLink);
         const isActivated = await userService.activate(actLink);
         if (isActivated==="activated") {
