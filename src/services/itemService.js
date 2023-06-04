@@ -70,7 +70,8 @@ class ItemService {
     }
 
     async deleteItem(req, res) {
-        const item = await Item.deleteOne({_id : ItemID});
+        const itemID = req.body.id;
+        const item = await Item.deleteOne({_id : itemID});
         return {res:"item deleted"};
     }
 
