@@ -14,10 +14,15 @@ dotenv.config();
 const app = express();
 app.use(cors());
 app.use(morgan('dev'));
+  
+app.use(bodyParser.urlencoded({
+    limit: '50mb',
+    parameterLimit: 100000,
+    extended: true 
+}));
 
-app.use(bodyParser.urlencoded({extended:false}));
-app.use(bodyParser.json());
-
+app.use(express.urlencoded({ extended: true, limit: "50mb" }));
+app.use(express.json({ limit: "50mb" }));
 
 app.use("/items", itemsRouter);
 app.use("/auth", authRouters);
