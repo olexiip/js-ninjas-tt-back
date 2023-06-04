@@ -48,8 +48,9 @@ class ItemService {
         return  result;
     }
 
-    async update(userID, editedItem) {
-        const ItemID = data.id;
+    async update(userID, editedItem, ItemID) {
+        console.log(userID)
+        console.log(editedItem)
         const item = await Item.findById(ItemID);
         if (!(item.owner===userID)) {
             return {res: "error norm"};

@@ -39,10 +39,12 @@ class ItemsController {
     return [];
   }
   async update(req, res) {
+
     console.log("itemsController > update");
     const userID = req.user.id
     const editedItem = req.body.editedItem;
-    const updatedItem = await itemService.update(userID, editedItem);
+    const ItemID = req.body.id;
+    const updatedItem = await itemService.update(userID, editedItem, ItemID);
     res.json(updatedItem);
     return [];
   }
