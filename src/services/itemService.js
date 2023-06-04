@@ -2,23 +2,22 @@
 import Item from "../models/Item.js"
 
 class ItemService {
-    async createItem(req, res) {
+    async createItem(item) {
         const newItem = new Item({
-            owner:req.user.id, 
-            nickname: req.body.nickname, 
-            realName: req.body.realName, 
-            originDescription: req.body.originDescription, 
-            superpowers: req.body.superpowers, 
-            catchPhrase: req.body.catchPhrase, 
+            owner            : item.id, 
+            nickname         : item.nickname, 
+            realName         : item.realName, 
+            originDescription: item.originDescription, 
+            superpowers      : item.superpowers, 
+            catchPhrase      : item.catchPhrase, 
             });
             newItem.save();
         return  newItem;
     }
 
     
-    async getallFree(req, res) {
-        const limit = +req.query.limit;
-        const page = +req.query.page;
+    async getallFree(page, limit) {
+
         const startIndex =(limit*(page)-limit);
 
         const collectionsize = await Item.estimatedDocumentCount();
@@ -33,13 +32,12 @@ class ItemService {
         return  result;
     }
 
-    async getAllItems(req, res) {
-        const limit = +req.query.limit;
-        const page = +req.query.page;
+    async getAllItems(page, limit, id) {
+
         const startIndex =(limit*(page)-limit);
 
-        const collectionsize = await Item.find({owner : req.user.id}).estimatedDocumentCount();
-        const allItems = await Item.find({owner : req.user.id}).skip(startIndex).limit(+limit);
+        const collectionsize = await Item.find({owner :id}).estimatedDocumentCount();
+        const allItems = await Item.find({owner : id}).skip(startIndex).limit(+limit);
 
         const result={
             itemList: allItems,
@@ -50,10 +48,8 @@ class ItemService {
         return  result;
     }
 
-    async update(req, res) {
-        const userID = req.user.id;
-        const ItemID = req.body.id;
-        const editedItem = req.body.editedItem;
+    async update(userID, editedItem) {
+        const ItemID = data.id;
         const item = await Item.findById(ItemID);
         if (!(item.owner===userID)) {
             return {res: "error norm"};
@@ -69,9 +65,9 @@ class ItemService {
         return {res: "text updated"};
     }
 
-    async deleteItem(req, res) {
+    async deleteItem(id) {
         const itemID = req.body.id;
-        const item = await Item.deleteOne({_id : itemID});
+        const item = await Item.deleteOne({_id : id});
         return {res:"item deleted"};
     }
 
