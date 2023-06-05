@@ -17,17 +17,14 @@ class TokenService {
         try {
             token = await Token.create({user: userId, refreshToken});
         } catch (e) {
-            console.log("error saving token")
             console.log(e);
         }
         return token;
     }
     async delToken(refreshToken) {
-       console.log(`tokenService > delToken`);
         const isDelToken = await Token.deleteOne({refreshToken});
     }
     async delTokenbyID(id) {
-       console.log(`tokenService > delTokenbyID`);
         const isDelToken = await Token.deleteMany({user: id});
         return isDelToken;
     }
@@ -36,12 +33,11 @@ class TokenService {
             const isOkToken = await jwt.verify(accesToken, process.env.JWT_S);
         return isOkToken;
         } catch (e) {
-           console.log(`tokenService > bad AccesToken`);
+           console.log(e);
             return null;
         }
     }
     async checkRefreshToken(refreshToken) {
-       console.log(`tokenService > checkRefreshToken`);
         try {
             const isOkToken = await jwt.verify(refreshToken, process.env.JWT_R_S);
             return isOkToken;
