@@ -4,21 +4,15 @@ import Token from "../models/Token.js";
 
 class TokenService {
     generateToken(payload){
-        console.log(`tokenService > generateToken`);
         const accesToken = jwt.sign(payload, process.env.JWT_S, {expiresIn: "5m"});
         const refreshToken = jwt.sign(payload, process.env.JWT_R_S, {expiresIn: "15d"});
         return {accesToken, refreshToken};
     }
     async saveToken(userId, refreshToken) {
-       console.log(`tokenService > saveToken`);
         const tokenData = await Token.findOne({user: userId})
         if (tokenData) {
-           console.log(`tokenService > try save(1)`);
             await this.delTokenbyID(userId);
-           console.log(`tokenService > try save(1.1)`);
         }
-       console.log(`tokenService > try save(2)`);
-
         let  token ; 
         try {
             token = await Token.create({user: userId, refreshToken});
