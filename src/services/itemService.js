@@ -2,9 +2,9 @@
 import Item from "../models/Item.js"
 
 class ItemService {
-    async createItem(item) {
+    async createItem(item, userID) {
         const newItem = new Item({
-            owner            : item.id, 
+            owner            : userID, 
             nickname         : item.nickname, 
             realName         : item.realName, 
             originDescription: item.originDescription, 

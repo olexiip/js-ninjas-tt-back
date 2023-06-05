@@ -24,23 +24,19 @@ class ItemsController {
 
   async createItem(req, res) {
     const item = req.body;
-    console.log(item);
-    console.log("itemsController > createItem");
-    const newItem = await itemService.createItem(item);
+    const userID = req.user.id
+    const newItem = await itemService.createItem(item, userID);
     res.json(newItem);
     return [];
   }
 
   async deleteItem(req, res) {
-    console.log("itemsController > deleteItem");
     const itemID = req.body.id;
     const delItem = await itemService.deleteItem(itemID);
     res.json(delItem);
     return [];
   }
   async update(req, res) {
-
-    console.log("itemsController > update");
     const userID = req.user.id
     const editedItem = req.body.editedItem;
     const ItemID = req.body.id;
