@@ -9,7 +9,7 @@ authRouters.post("/logout", authMiddlewares, (req, res) => authController.logout
 authRouters.post("/reg", [
     check.check("email", "msg bad email").notEmpty(),
     check.check("userPass", "msg bad userPass").isLength({min:4, max:16})],
-     (res, req) => authController.reg(res, req))
+     (res, req) => authController.reg(res, req));
 authRouters.post("/check", authMiddlewares, (req, res, next) => authController.check(req, res).catch(next))
 authRouters.post("/refresh", (req, res) => authController.refresh(req, res))
 authRouters.get("/activate/:link", (req, res) => authController.activate(req, res))

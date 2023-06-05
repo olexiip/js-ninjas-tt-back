@@ -2,18 +2,15 @@
 import userService from "../services/userService.js";
 
 class AuthController {
-    // constructor(logger) {
-    //     this.log = logger;
-    // }
 
     async login(req, res) {
-        console.log(`>>> login request`);
         const userData = await userService.login(req, res);
         return res.json(userData);    
     }
 
     async reg(req, res) {
         console.log(`>>> reg request`);
+        console.log(req.body)
         const userData = await userService.register(req, res);
         console.log(userData);
         if (!userData?.user) {
@@ -23,14 +20,11 @@ class AuthController {
     }
 
     async check(req, res) {
-        console.log(`>>> check request`);
         return res.json({res:"ok"});
     }
 
     async refresh(req, res) {
-        console.log(`AuthController > refresh request`);
-        //console.log(req.body);
-        console.log(`AuthController > refreshToken: ${req.body.refreshToken}`);
+
         if (!req.body.refreshToken) {
             res.json({"res": "user does not have a token"});
         }   
