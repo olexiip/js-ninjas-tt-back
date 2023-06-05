@@ -36,7 +36,7 @@ class ItemService {
 
         const startIndex =(limit*(page)-limit);
 
-        const collectionsize = await Item.find({owner :id}).estimatedDocumentCount();
+        const collectionsize = await Item.countDocuments({owner : id});
         const allItems = await Item.find({owner : id}).skip(startIndex).limit(+limit);
 
         const result={
