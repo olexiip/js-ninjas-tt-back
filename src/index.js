@@ -74,16 +74,30 @@ app.use(errorHandler);
 app.get("/", (req, res)=>{
     res.sendFile(path.resolve(__dirname, "static", "index.html"));
 });
-
-app.listen(PORT, async ()=> {
-    
-    console.log(`Server started with port ${PORT}...`);
-    try {
-        await mongoose.connect(DB_CON);
-        console.log("DB ok")
-    } catch (e) {
-        console.log(e);
-    }
-
-
+app.get("/ping", (req, res)=>{
+    res.json({"pong":"ok"});
 });
+
+try {
+    await mongoose.connect(DB_CON);
+    console.log("DB ok")
+    app.listen(PORT, async ()=> {
+        console.log(`Server started with port ${PORT}...`);
+    })
+}catch(e){
+    console.log(e)
+}
+
+
+// app.listen(PORT, async ()=> {
+    
+//     console.log(`Server started with port ${PORT}...`);
+//     try {
+//         await mongoose.connect(DB_CON);
+//         console.log("DB ok")
+//     } catch (e) {
+//         console.log(e);
+//     }
+
+
+// });

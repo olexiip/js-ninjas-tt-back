@@ -12,10 +12,12 @@ class UserService {
         this.log = logger;
       }
 async register(req, res) {
+    console.log("UserService>> register")
     const candidate = await User.findOne({email: req.body.userEmail});
     if (candidate) {
         return ({"res": "email already in use"});
     };
+    console.log("UserService>> register >> userpass")
     const hashedPass = bcrypt.hashSync(req.body.userPass, 7); 
     const newUserRole = await Role.findOne({value: "USER"});
     const actLink = uuidv4();
@@ -31,8 +33,8 @@ async register(req, res) {
     const userDto = new UserDTO(newUser);
     newUser.save();
     await mailService.sendActMail(req.body.userEmail, `${process.env.URL}/auth/activate/${actLink}`);
-    newUser.save();
-    return {user: userDto};
+    //newUser.save();
+    return {user: userDto.id};
     }
 
 
