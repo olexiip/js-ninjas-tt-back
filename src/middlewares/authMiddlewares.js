@@ -4,6 +4,8 @@ import Token from "../models/Token.js";
 const authMiddlewares = async (req, res, next) => {
     console.log(">check");
     const userAuthorizationHeader = req.headers.authorization;
+    //console.log(userAuthorizationHeader)
+
     if (!userAuthorizationHeader) {
         return res.json({"res":"auth error"});
     }

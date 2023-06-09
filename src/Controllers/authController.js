@@ -16,6 +16,8 @@ class AuthController {
         if (!userData?.user) {
             return res.status(400).json({"res": "reg error"});
         }
+        console.log(userData);
+        //console.log("ok");
         return res.json(userData);
     }
 
