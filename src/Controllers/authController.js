@@ -35,7 +35,8 @@ class AuthController {
             console.log(`AuthController > refresh ok`);
             return res.json(checkRefreshToken);
         }
-        return res.status(400).json({"res": "refresh bad"});    
+        res.json({"res": "refresh bad"});
+        return res.status(400);    
         
     }
     async activate(req, res) {
