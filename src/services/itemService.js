@@ -1,5 +1,6 @@
 
 import Item from "../models/Item.js"
+import Image from "../models/Image.js";
 
 class ItemService {
     async createItem(item, userID) {
@@ -55,20 +56,42 @@ class ItemService {
         if (!(item.owner===userID)) {
             return {res: "error norm"};
         };
-        item.mainImg = editedItem.mainImg,
-        item.nickname = editedItem.nickname, 
-        item.realName = editedItem.realName, 
-        item.originDescription= editedItem.originDescription, 
-        item.superpowers= editedItem.superpowers, 
-        item.catchPhrase= editedItem.catchPhrase
-    
-        item.save();
-        return {res: "text updated"};
+        item.mainImg = editedItem.mainImg;
+        item.nickname = editedItem.nickname;
+        item.realName = editedItem.realName; 
+        item.originDescription= editedItem.originDescription;
+        item.superpowers= editedItem.superpowers;
+        item.catchPhrase= editedItem.catchPhrase;
+        item.images = editedItem.images;
+        await item.save();
+        return {res: item};
     }
 
     async deleteItem(id) {
-        const itemID = req.body.id;
         const item = await Item.deleteOne({_id : id});
+        return {res:"item deleted"};
+    }
+
+    async newImage(item, userID) {
+      console.log("item-----------")
+      console.log(item)
+        const newItem = new Image({
+            owner: userID, 
+            img: item,
+            });
+            newItem.save();
+        return  newItem;
+    }
+
+    async getImage(id) {
+      console.log(id)
+        const image = await Image.findById(id);
+        return  image;
+    }
+
+    async deleteImage(id) {
+        const itemID = req.body.id;
+        const item = await Image.deleteOne({_id : id});
         return {res:"item deleted"};
     }
 

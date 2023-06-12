@@ -8,6 +8,10 @@ itemsRouter.post("/addItem", authMiddlewares, async (req, res, next) => itemsCon
 itemsRouter.delete("/delItem", authMiddlewares, async (req, res, next) => itemsController.deleteItem(req, res).catch(next));
 itemsRouter.post("/update", authMiddlewares, async (req, res, next) => itemsController.update(req, res).catch(next));
 itemsRouter.post("/updateImage", authMiddlewares, async (req, res, next) => itemsController.updateImage(req, res).catch(next));
+itemsRouter.post("/newImage", authMiddlewares, async (req, res, next) => itemsController.newImage(req, res).catch(next));
+itemsRouter.get("/getImage", authMiddlewares, async (req, res, next) => itemsController.getImage(req, res).catch(next));
+itemsRouter.post("/deleteImage", authMiddlewares, async (req, res, next) => itemsController.deleteImage(req, res).catch(next));
+
 
 
 itemsRouter.get("/getallFree", async (req, res, next) => itemsController.getallFree(req, res).catch(next));

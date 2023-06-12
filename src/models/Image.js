@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 const { Schema, model } = mongoose;
 
-const ItemSchema = new Schema({
-    id: {type: String, required: true},
+const ImageSchema = new Schema({
+    // id: {type: String, required: true},
     owner: {type: String, required: true, ref: "User"},
     img: {type: String, default: ""},
     createdAt: { type: Date, default: Date.now },
@@ -10,5 +10,5 @@ const ItemSchema = new Schema({
 },
 //
 );
- const Item = model("Item", ItemSchema);
- export default Item;
+ const Image = model("Image", ImageSchema);
+ export default Image;
