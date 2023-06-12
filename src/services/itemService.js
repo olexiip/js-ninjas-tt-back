@@ -73,8 +73,6 @@ class ItemService {
     }
 
     async newImage(item, userID) {
-      console.log("item-----------")
-      console.log(item)
         const newItem = new Image({
             owner: userID, 
             img: item,
@@ -84,7 +82,6 @@ class ItemService {
     }
 
     async getImage(id) {
-      console.log(id)
         const image = await Image.findById(id);
         return  image;
     }
