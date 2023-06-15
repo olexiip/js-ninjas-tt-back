@@ -52,8 +52,6 @@ afterAll(async () => {
   console.log(toster2)
 });
 
-
-
 describe('Ping page', () => {
 	it('Ping page', async () => {
     console.log("test 1 start Ping")
@@ -64,10 +62,6 @@ describe('Ping page', () => {
       expect(response.body).toEqual({ "pong": 'ok' });
 	});
 });
-// const runTests = () => {
-//   test1
-
-
 
 describe('Reg user', () => {
 	it('Reg user', async () => {
@@ -81,9 +75,6 @@ describe('Reg user', () => {
 	});
 });
 
-
-// }
-// const test1 = () => {
   describe('LogIn user', () => {
     it('LogIn user ', async () => {
        console.log("test 3 start LogIn")
@@ -98,11 +89,7 @@ describe('Reg user', () => {
       console.log(authHeader)
     });
   });
-// }
-
-
   
-
   describe('Create Item', () => {
     it('Create Item', async () => {
       console.log("test 4 start Create Item")

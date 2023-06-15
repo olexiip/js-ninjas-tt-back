@@ -37,7 +37,6 @@ class AuthController {
         }
         res.json({"res": "refresh bad"});
         return res.status(400);    
-        
     }
     async activate(req, res) {
         console.log(`>>> activate request`);

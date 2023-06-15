@@ -9,7 +9,6 @@ class ItemsController {
     const id = req.user.id
     const itemList = await itemService.getAllItems(page, limit, id);
     res.json(itemList);
-    return [];
   }
 
   async getallFree(req, res) {
@@ -19,7 +18,6 @@ class ItemsController {
 
     const itemList = await itemService.getallFree(page, limit);
     res.json(itemList);
-    return [];
   }
 
   async createItem(req, res) {
@@ -27,14 +25,12 @@ class ItemsController {
     const userID = req.user.id
     const newItem = await itemService.createItem(item, userID);
     res.json(newItem);
-    return [];
   }
 
   async deleteItem(req, res) {
     const itemID = req.body.id;
     const delItem = await itemService.deleteItem(itemID);
     res.json(delItem);
-    return [];
   }
   async update(req, res) {
     const userID = req.user.id
@@ -42,7 +38,6 @@ class ItemsController {
     const ItemID = req.body.id;
     const updatedItem = await itemService.update(userID, editedItem, ItemID);
     res.json(updatedItem);
-    return [];
   }
 
 
@@ -50,21 +45,18 @@ class ItemsController {
     const itemID = req.body.id;
     const delItem = await itemService.deleteImage(itemID);
     res.json(delItem);
-    return [];
   }
   async newImage(req, res) {
     const item = req.body.img;
     const userID = req.user.id
     const newItem = await itemService.newImage(item, userID);
     res.json(newItem);
-    return [];
   }
 
   async getImage(req, res) {
     const id = req.query.id
     const image = await itemService.getImage(id);
     res.json(image);
-    return [];
   }
 
 }
